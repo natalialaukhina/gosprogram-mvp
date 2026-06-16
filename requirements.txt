@@ -1,0 +1,2 @@
+python-docx>=0.8.11
+notion-client>=2.2.1
