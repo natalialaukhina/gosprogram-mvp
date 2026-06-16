@@ -270,34 +270,34 @@ def main():
     args = parser.parse_args()
 
     if not HAS_NOTION:
-        print("❌ Библиотека notion-client не установлена. Установите: pip install notion-client")
+        print("ERROR: notion-client not installed. Run: pip install notion-client")
         sys.exit(1)
 
     api_key = load_env(args.env)
     if not api_key:
-        print("❌ NOTION_API_KEY не найден. Проверьте .env файл.")
+        print("ERROR: NOTION_API_KEY not found in .env file.")
         sys.exit(1)
 
     page_id = extract_page_id(args.page_url)
-    print(f"📋 Извлечение данных из Notion: {args.page_url}")
-    print(f"   Page ID: {page_id}")
+    print(f"Extracting from Notion: {args.page_url}")
+    print(f"  Page ID: {page_id}")
 
     course_data = extract_course_data(page_id, api_key)
 
-    # Статистика
+    # Stats
     total_lessons = sum(len(m['lessons']) for m in course_data['modules'])
     total_hours = sum(
         lesson['hours_total']
         for module in course_data['modules']
         for lesson in module['lessons']
     )
-    print(f"\n✅ Извлечено:")
-    print(f"   Название: {course_data['title']}")
-    print(f"   Модулей: {len(course_data['modules'])}")
-    print(f"   Уроков: {total_lessons}")
-    print(f"   Академических часов: {total_hours}")
+    print(f"\nExtracted:")
+    print(f"  Title: {course_data['title']}")
+    print(f"  Modules: {len(course_data['modules'])}")
+    print(f"  Lessons: {total_lessons}")
+    print(f"  Academic hours: {total_hours}")
 
-    # Сохранить JSON
+    # Save JSON
     if args.output:
         output_path = Path(args.output)
     else:
@@ -305,7 +305,7 @@ def main():
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     output_path.write_text(json.dumps(course_data, ensure_ascii=False, indent=2), encoding='utf-8')
-    print(f"   Данные сохранены: {output_path}")
+    print(f"  Data saved: {output_path}")
 
     return course_data
 

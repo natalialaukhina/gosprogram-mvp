@@ -33,3 +33,6 @@ Thumbs.db
 # Obsidian
 .obsidian/output/test.docx
 output/test.md
+output/program_dpo.md
+output/program_dpo.docx
+output/course_data.json
