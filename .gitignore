@@ -31,4 +31,5 @@ output/*.json
 Thumbs.db
 
 # Obsidian
-.obsidian/
+.obsidian/output/test.docx
+output/test.md
